@@ -158,4 +158,20 @@ class BlogController extends Controller
 
         return redirect()->back();
     }
+
+    public function changeStatus(Blog $blog)
+    {
+        $blog->is_published = !$blog->is_published;
+
+        if ($blog->save()) {
+            if ($blog->is_published == 1) {
+                return '0';
+                // return json_encode('Blog published successfully');
+            } else {
+                return json_encode('Blog is now unpublished successfully');
+            }
+        } else {
+            return false;
+        }
+    }
 }

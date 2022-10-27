@@ -26,6 +26,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/uploads/upload', [App\Http\Controllers\Backend\UploadController::class, 'uploadIndex'])->name('upload.upload');
     Route::post('/uploads/upload', [App\Http\Controllers\Backend\UploadController::class, 'upload'])->name('upload.upload.store');
 
+    Route::post('blog/change_status/{blog}', [App\Http\Controllers\Backend\BlogController::class, 'changeStatus']);
     Route::resource('blog', App\Http\Controllers\Backend\BlogController::class);
 
     Route::resource('service_group', App\Http\Controllers\Backend\ServiceGroupController::class);
