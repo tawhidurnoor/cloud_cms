@@ -14,7 +14,7 @@
             '<button type="button" class="view-content"><i class="fa fa-file-text-o"></i> Get content</button>'
         );
         var btnBackToList = $(
-            '<a href="../../page" class="view-content"><i class="fa fa-list"></i> Examples list</a>'
+            '<a href="../../page" class="view-content"><i class="fa fa-arrow-left"></i> Go Back</a>'
         );
 
         toolbar.appendTo(document.body);
