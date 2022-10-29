@@ -64,45 +64,49 @@
         <div class="container">
             <div class="section-title">
                 <span>Blog Post</span>
-                <h2>Our Regular Blogs</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A facilis vel consequatur tempora atque
-                    blanditiis exercitationem incidunt, alias corporis quam assumenda dicta.</p>
+                <h2>Read Our Blogs</h2>
             </div>
             <div class="row">
 
-                @foreach ($blogs as $blog)
-                    <div class="col-lg-4 col-md-6">
-                        <div class="single-blog">
-                            <div class="blog-img">
-                                <a href="{{ route('blog.details', $blog->slug) }}">
-                                    <img data-cfsrc="{{ asset('uploads/images/' . $blog->banner) }}" alt="blog"
-                                        style="display:none;visibility:hidden;">
-                                    <noscript>
-                                        <img src="{{ asset('uploads/images/' . $blog->banner) }}" width="570px"
-                                            alt="blog">
-                                    </noscript>
-                                </a>
-                            </div>
-                            <div class="content">
-                                <ul>
-                                    <li>
-                                        {{ \Carbon\Carbon::parse($blog->updated_at)->diffForHumans() }}
-                                    </li>
-                                    <li>
-                                        <a href="#">By Admin</a>
-                                    </li>
-                                </ul>
-                                <a href="{{ route('blog.details', $blog->slug) }}">
-                                    <h3>{{ $blog->title }}</h3>
-                                </a>
-                                <p>
-                                    {!! Str::limit($blog->summary, 100) !!}
-                                </p>
-                                <a href="{{ route('blog.details', $blog->slug) }}" class="line-bnt">Read More</a>
+                @if (count($blogs) == 0)
+                    <div class="alert alert-warning" role="alert">
+                        We don't have anything for you to read right now.
+                    </div>
+                @else
+                    @foreach ($blogs as $blog)
+                        <div class="col-lg-4 col-md-6">
+                            <div class="single-blog">
+                                <div class="blog-img">
+                                    <a href="{{ route('blog.details', $blog->slug) }}">
+                                        <img data-cfsrc="{{ asset('uploads/images/' . $blog->banner) }}" alt="blog"
+                                            style="display:none;visibility:hidden;">
+                                        <noscript>
+                                            <img src="{{ asset('uploads/images/' . $blog->banner) }}" width="570px"
+                                                alt="blog">
+                                        </noscript>
+                                    </a>
+                                </div>
+                                <div class="content">
+                                    <ul>
+                                        <li>
+                                            {{ \Carbon\Carbon::parse($blog->updated_at)->diffForHumans() }}
+                                        </li>
+                                        <li>
+                                            <a href="#">By Admin</a>
+                                        </li>
+                                    </ul>
+                                    <a href="{{ route('blog.details', $blog->slug) }}">
+                                        <h3>{{ $blog->title }}</h3>
+                                    </a>
+                                    <p>
+                                        {!! Str::limit($blog->summary, 100) !!}
+                                    </p>
+                                    <a href="{{ route('blog.details', $blog->slug) }}" class="line-bnt">Read More</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                @endif
 
                 {{-- <div class="col-lg-12">
                     <div class="page-navigation-area">

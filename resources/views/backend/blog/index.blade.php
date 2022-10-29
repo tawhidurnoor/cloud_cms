@@ -34,7 +34,7 @@
                     <div class="card-body">
                         {{-- <h6 class="card-subtitle mb-3">Data table example</h6> --}}
                         <div class="table-responsive m-t-40">
-                            <table id="config-table" class="table display table-bordered table-striped no-wrap">
+                            <table id="blog-table" class="table display table-bordered table-striped no-wrap">
                                 <thead>
                                     <!-- start row -->
                                     <tr>
@@ -139,6 +139,13 @@
     <!-- This Page JS -->
     <script src="{{ asset('assets_backend/libs/bootstrap-switch/dist/js/bootstrap-switch.min.js') }}"></script>
 
+    <script>
+        $(function() {
+            $("#blog-table").DataTable({
+                responsive: true,
+            });
+        });
+    </script>
 
     <script>
         $(function() {
@@ -146,7 +153,7 @@
                 e.preventDefault();
                 $('#danger-header-modal').modal('show');
                 var id = $(this).data('id');
-                console.log(id);
+                // console.log(id);
                 //$('#del_id').val(id);
                 document.getElementById("delete-form").action = "../admin/blog/" + id;
             });
@@ -154,6 +161,8 @@
     </script>
 
     <script>
+        var final_response;
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
@@ -164,36 +173,38 @@
             $(document).on('click', '#changeStatusSwitch', function(e) {
                 // e.preventDefault();
                 var id = $(this).data('id');
-                var final_response = null;
                 $.ajax({
                     type: 'POST',
                     url: '../admin/blog/change_status/' + id,
                     dataType: 'json',
                     success: function(response) {
-                        final_response = response;
+                        // final_response = response;
+
+
+                        if (response == 0) {
+                            toastr.warning(
+                                "Error changing page status",
+                                "Error!", {
+                                    showMethod: "slideDown",
+                                    hideMethod: "slideUp",
+                                    timeOut: 3000
+                                }
+                            );
+                        } else {
+                            toastr.success(
+                                response.message,
+                                "Success!", {
+                                    showMethod: "slideDown",
+                                    hideMethod: "slideUp",
+                                    timeOut: 3000
+                                }
+                            );
+                        }
+
+
+
                     }
                 });
-
-                console.log(final_response);
-                if (final_response == 0) {
-                    toastr.warning(
-                        "Error changing page status",
-                        "Error!", {
-                            showMethod: "slideDown",
-                            hideMethod: "slideUp",
-                            timeOut: 3000
-                        }
-                    );
-                } else {
-                    toastr.success(
-                        final_response,
-                        "Success!", {
-                            showMethod: "slideDown",
-                            hideMethod: "slideUp",
-                            timeOut: 3000
-                        }
-                    );
-                }
 
             });
         });

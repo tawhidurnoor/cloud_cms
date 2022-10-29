@@ -165,11 +165,17 @@ class BlogController extends Controller
 
         if ($blog->save()) {
             if ($blog->is_published == 1) {
-                return '0';
-                // return json_encode('Blog published successfully');
+                // return '10';
+                $returnResponse = [
+                    'message' => 'Blog published successfully',
+                ];
             } else {
-                return json_encode('Blog is now unpublished successfully');
+                $returnResponse = [
+                    'message' => 'Blog unpublished successfully',
+                ];
             }
+
+            return json_encode($returnResponse);
         } else {
             return false;
         }
