@@ -25,6 +25,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/uploads/files', [App\Http\Controllers\Backend\UploadController::class, 'index'])->name('upload.index');
     Route::get('/uploads/upload', [App\Http\Controllers\Backend\UploadController::class, 'uploadIndex'])->name('upload.upload');
     Route::post('/uploads/upload', [App\Http\Controllers\Backend\UploadController::class, 'upload'])->name('upload.upload.store');
+    Route::delete('/uploads/{upload}', [App\Http\Controllers\Backend\UploadController::class, 'destroy'])->name('upload.destroy');
 
     Route::post('blog/change_status/{blog}', [App\Http\Controllers\Backend\BlogController::class, 'changeStatus']);
     Route::resource('blog', App\Http\Controllers\Backend\BlogController::class);

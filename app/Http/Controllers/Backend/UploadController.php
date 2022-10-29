@@ -52,4 +52,15 @@ class UploadController extends Controller
             ]);
         }
     }
+
+    public function destroy(Upload $upload)
+    {
+        if ($upload->delete()) {
+            session()->flash('success', 'File deleted succesfully!');
+        } else {
+            session()->flash('warning', 'Error deleting file!');
+        }
+
+        return redirect()->back();
+    }
 }
